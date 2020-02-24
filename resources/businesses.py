@@ -13,7 +13,7 @@ from flask_login import current_user, login_required
 businesses = Blueprint('businesses', 'businesses')
 
 @businesses.route('/', methods=['GET'])
-def test():
+def business_index():
 	businesses = models.Business.select()
 	# creates a list of dictionaries from all the business models
 	business_dicts = [model_to_dict(business) for business in businesses]
@@ -122,6 +122,7 @@ def update_business(id):
 				message=f'You do not own {business.name}.',
 				status=401
 			), 401
+
 
 
 

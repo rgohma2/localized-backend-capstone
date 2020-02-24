@@ -1,5 +1,6 @@
 from peewee import *
 from flask_login import UserMixin
+import datetime
 
 
 DATABASE = SqliteDatabase('localized.sqlite')
@@ -32,10 +33,16 @@ class Business(BaseModel):
 	category = CharField()
 	image = CharField()
 
+class Post(BaseModel):
+	business = ForeignKeyField(Business, backref='business')
+	image = CharField()
+	content = CharField()
+	date = DateTimeField(default=datetime.datetime.now)
+
 
 def initialize():
 	DATABASE.connect()
-	DATABASE.create_tables([Address, User, Business], safe=True)
+	DATABASE.create_tables([Address, User, Business, Post], safe=True)
 	print('Sucessfully connected to DataBase')
 	DATABASE.close()
 
