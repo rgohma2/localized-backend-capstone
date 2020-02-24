@@ -10,11 +10,14 @@ class BaseModel(Model):
 		database = DATABASE
 
 class Address(BaseModel):
-	street_address = CharField()
+	address_1 = CharField()
+	address_2 = CharField()
 	city = CharField()
 	state = CharField()
 	zip_code = CharField()
 	country = CharField()
+
+
 
 class User(BaseModel, UserMixin):
 	first_name = CharField()
