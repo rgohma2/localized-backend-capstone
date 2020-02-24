@@ -61,7 +61,44 @@ def register():
 				message='Sucessfully created new user with email: {}'.format(new_user_dict['email']),
 				status=200
 			), 200
-		
+
+@users.route('/login', methods=['POST'])
+def login():
+	payload = request.get_json()
+	payload['email'] = payload['email'].lower()
+
+	try:
+		user = models.User.get(models.User.email == payload['email'])
+		user_dict = model_to_dict(user)
+		password_matches = check_password_hash(user_dict['password'], payload['password'])
+		if password_matches:
+			# login_user(user)
+			user_dict.pop('password')
+			return jsonify(
+					data=user_dict,
+					message=f'Welcome back {user.first_name}.',
+					status=201
+				), 201
+		else:
+			print('bad password')
+			return jsonify(
+					data={},
+					message='Incorrect email or password.',
+					status=401
+				), 401
+	except models.DoesNotExist:
+		print('bad username')
+		return jsonify(
+				data={},
+				message='Incorrect email or password.',
+				status=401
+			), 401
+
+
+
+
+
+
 
 
 
