@@ -14,7 +14,15 @@ businesses = Blueprint('businesses', 'businesses')
 
 @businesses.route('/', methods=['GET'])
 def test():
-	return 'businesses resource working'
+	businesses = models.Business.select()
+	business_dicts = [model_to_dict(business) for business in businesses]
+	[(business['owner'].pop('address'), business['owner'].pop('password')) for business in business_dicts]
+
+	return jsonify(
+			data=business_dicts,
+			message=f'Successfully retrieved {len(businesses)} businesses.',
+			status=200
+		), 200
 
 @businesses.route('/', methods=['POST'])
 def create_business():
@@ -39,14 +47,19 @@ def create_business():
 			image=payload['image']
 		)
 	business_dict = model_to_dict(business)
+	print(business_dict)
 	business_dict['owner'].pop('address')
 	business_dict['owner'].pop('password')
+	print(business_dict)
 
 	return jsonify(
 			data=business_dict,
-			message=f'Successfully created business with name: {business.name}',
+			message=f'{business.name} successfully created!',
 			status=200
 		), 200
+
+
+
 
 
 
