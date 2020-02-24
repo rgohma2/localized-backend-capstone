@@ -28,6 +28,14 @@ def user_loader(user_id):
 	except models.DoesNotExist:
 		return None
 
+@login_manager.unauthorized_handler
+def unauthorized():
+	return jsonify(
+			data={},
+			message='Error, user not logged in',
+			status=401
+		), 401 
+
 
 
 
