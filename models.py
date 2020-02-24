@@ -17,19 +17,25 @@ class Address(BaseModel):
 	zip_code = CharField()
 	country = CharField()
 
-
-
 class User(BaseModel, UserMixin):
+	address = ForeignKeyField(Address, backref='address')
 	first_name = CharField()
 	last_name = CharField()
 	email = CharField(unique=True) 
 	password = CharField()
+
+class Business(BaseModel):
 	address = ForeignKeyField(Address, backref='address')
+	owner = ForeignKeyField(User, backref='owner')
+	name = CharField()
+	about = CharField()
+	category = CharField()
+	image = CharField()
 
 
 def initialize():
 	DATABASE.connect()
-	DATABASE.create_tables([Address, User], safe=True)
+	DATABASE.create_tables([Address, User, Business], safe=True)
 	print('Sucessfully connected to DataBase')
 	DATABASE.close()
 

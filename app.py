@@ -3,7 +3,7 @@ from flask_login import LoginManager
 
 import models
 from resources.users import users
-
+from resources.businesses import businesses
 
 DEBUG = True
 PORT = 8000
@@ -11,6 +11,9 @@ PORT = 8000
 app = Flask(__name__) 
 
 app.register_blueprint(users, url_prefix='/api/v1/users')
+app.register_blueprint(businesses, url_prefix='/api/v1/businesses')
+
+app.secret_key = '9pq438hiredfbkajhosei'
 
 login_manager = LoginManager()
 
