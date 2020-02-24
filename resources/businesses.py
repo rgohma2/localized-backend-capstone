@@ -66,6 +66,7 @@ def create_business():
 @login_required
 def delete_business(id):
 	business = models.Business.get_by_id(id)
+	# storing business name to be used in response message
 	name = business.name
 	if current_user.id == business.owner.id:
 		business.delete_instance()
@@ -80,6 +81,53 @@ def delete_business(id):
 				message=f'You do not own {name}',
 				status=401
 			), 401
+
+@businesses.route('/<id>', methods=['PUT'])
+@login_required
+def update_business(id):
+	payload = request.get_json()
+	business = models.Business.get_by_id(id)
+
+	if business.owner.id == current_user.id:
+
+		address = models.Address.get_by_id(business.address.id)
+
+		address.address_1 = payload['address_1'] if 'address_1' in payload else None
+		address.address_2 = payload['address_2'] if 'address_2' in payload else None
+		address.city = payload['city'] if 'city' in payload else None
+		address.state = payload['state'] if 'state' in payload else None
+		address.zip_code = payload['zip_code'] if 'zip_code' in payload else None
+		address.country = payload['country'] if 'country' in payload else None
+		address.save()
+
+		business.address = address
+		business.name = payload['name'] if 'name' in payload else None
+		business.about = payload['about'] if 'about' in payload else None
+		business.category = payload['category'] if 'category' in payload else None
+		business.image = payload['image'] if 'image' in payload else None
+		business.save()
+
+		business_dict = model_to_dict(business)
+		business_dict['owner'].pop('password')
+		business_dict['owner'].pop('address')
+
+		return jsonify(
+				data=business_dict,
+				message=f'Successfully updated {business.name}!',
+				status=200
+			), 200
+	else:
+		return jsonify(
+				data={},
+				message=f'You do not own {business.name}.',
+				status=401
+			), 401
+
+
+
+
+
+
 
 
 
