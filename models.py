@@ -17,11 +17,11 @@ class Address(BaseModel):
 	country = CharField()
 
 class User(BaseModel, UserMixin):
- 	first_name = CharField()
- 	last_name = CharField()
+	first_name = CharField()
+	last_name = CharField()
 	email = CharField(unique=True) 
-  	password = CharField()
-  	address = ForeignKeyField(Address, backref='address')
+	password = CharField()
+	address = ForeignKeyField(Address, backref='address')
 
 
 def initialize():
