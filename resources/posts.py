@@ -6,11 +6,17 @@ from flask_login import current_user
 posts = Blueprint('posts', 'posts')
 
 @posts.route('/', methods=['GET'])
-def test():
+def post_index():
 	posts = models.Post.select()
+
 	post_dicts = [model_to_dict(post) for post in posts]
-	
-	return 'posts resource working'
+	[(post['business'].pop('owner'), post['business'].pop('address')) for post in post_dicts]
+
+	return jsonify(
+			data=post_dicts,
+			message=f'Sucessfully retrieved {len(posts)} posts',
+			status=201
+		), 201
 
 
 @posts.route('/', methods=['POST'])
