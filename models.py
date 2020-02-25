@@ -19,14 +19,14 @@ class Address(BaseModel):
 	country = CharField()
 
 class User(BaseModel, UserMixin):
-	address = ForeignKeyField(Address, backref='user')
+	address = ForeignKeyField(Address)
 	first_name = CharField()
 	last_name = CharField()
 	email = CharField(unique=True) 
 	password = CharField()
 
 class Business(BaseModel):
-	address = ForeignKeyField(Address, backref='business')
+	address = ForeignKeyField(Address)
 	owner = ForeignKeyField(User, backref='business')
 	name = CharField()
 	about = CharField()
@@ -34,17 +34,20 @@ class Business(BaseModel):
 	image = CharField()
 
 class Post(BaseModel):
-	business = ForeignKeyField(Business, backref='post')
+	business = ForeignKeyField(Business, backref='posts')
 	image = CharField()
 	content = CharField()
 	date = DateTimeField(default=datetime.datetime.now)
 
+class Subscription(BaseModel):
+	following = ForeignKeyField(Business, backref='subscribers')
+	follower = ForeignKeyField(User, backref='subscriptions')
 
 
 
 def initialize():
 	DATABASE.connect()
-	DATABASE.create_tables([Address, User, Business, Post], safe=True)
+	DATABASE.create_tables([Address, User, Business, Post, Subscription], safe=True)
 	print('Sucessfully connected to DataBase')
 	DATABASE.close()
 
