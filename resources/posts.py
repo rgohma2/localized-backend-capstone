@@ -35,11 +35,33 @@ def create_post():
 				status=200
 			), 200
 	except:
-		return jsonify (
+		return jsonify(
 				data={},
 				message='You are not the owner of this business.',
 				status=401
 			), 401
+
+@posts.route('/<id>', methods=['Delete'])
+def delete_post(id):
+	post = models.Post.get_by_id(id)
+	if post.business.owner.id == current_user.id:
+		post.delete_instance()
+		return jsonify(
+				data={},
+				message='Sucessfully deleted post!',
+				status=201
+			), 201
+	else:
+		return jsonify(
+				data={},
+				message='You do not own the business that made this post.',
+				status=401
+			), 401
+	
+
+
+
+
 
 
 
