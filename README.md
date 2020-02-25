@@ -66,16 +66,34 @@ Message
 |/api/v1/users/logout | GET | user logout route |
 |/api/v1/posts | GET | post index route |
 |/api/v1/posts | POST | post create route |
-|/api/v1/posts/<id> | DELETE | post destroy route |
-|/api/v1/posts/<id> | PUT | post update route |
-|/api/v1/comments/<post_id> | GET | comment index route |
-|/api/v1/comments/<post_id> | POST | comment create route |
-|/api/v1/comments/<post_id> | DELETE | comment destroy route |
+|/api/v1/posts/`<id>` | DELETE | post destroy route |
+|/api/v1/posts/`<id>` | PUT | post update route |
+|/api/v1/comments/`<post_id>` | GET | comment index route |
+|/api/v1/comments/`<post_id>` | POST | comment create route |
+|/api/v1/comments/`<post_id>` | DELETE | comment destroy route |
 |/api/v1/businesses | GET | business index route |
-|/api/v1/businesses/<id> | GET | business show route |
+|/api/v1/businesses/`<id>` | GET | business show route |
 |/api/v1/businesses | POST | business create route |
-|/api/v1/businesses/<id> | DELETE | business destroy route |
-|/api/v1/businesses/<id> | PUT | business update route |
-|/api/v1/subscription/<business_id> | GET | subscription index route |
-|/api/v1/subscription/<business_id> | POST | subscription create route |
-|/api/v1/subscription/<business_id> | DELETE | subscription destroy route |
+|/api/v1/businesses/`<id>` | DELETE | business destroy route |
+|/api/v1/businesses/`<id>` | PUT | business update route |
+|/api/v1/subscription/`<business_id>` | GET | subscription index route |
+|/api/v1/subscription/`<business_id> `| POST | subscription create route |
+|/api/v1/subscription/`<business_id> `| DELETE | subscription destroy route |
+
+
+## Development Process
+
+* 1st Sprint: Feb 24th - Feb 26th
+	* Full CRUD on User, Business, and Post models
+* 2nd Sprint : Feb 26th - 
+
+
+
+
+
+
+
+
+
+
+

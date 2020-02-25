@@ -79,8 +79,8 @@ def delete_business(id):
 		return jsonify(
 				data={},
 				message=f'You do not own {name}',
-				status=401
-			), 401
+				status=400
+			), 400
 
 @businesses.route('/<id>', methods=['PUT'])
 @login_required
@@ -120,8 +120,8 @@ def update_business(id):
 		return jsonify(
 				data={},
 				message=f'You do not own {business.name}.',
-				status=401
-			), 401
+				status=400
+			), 400
 
 
 

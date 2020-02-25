@@ -19,25 +19,27 @@ class Address(BaseModel):
 	country = CharField()
 
 class User(BaseModel, UserMixin):
-	address = ForeignKeyField(Address, backref='address')
+	address = ForeignKeyField(Address, backref='user')
 	first_name = CharField()
 	last_name = CharField()
 	email = CharField(unique=True) 
 	password = CharField()
 
 class Business(BaseModel):
-	address = ForeignKeyField(Address, backref='address')
-	owner = ForeignKeyField(User, backref='owner')
+	address = ForeignKeyField(Address, backref='business')
+	owner = ForeignKeyField(User, backref='business')
 	name = CharField()
 	about = CharField()
 	category = CharField()
 	image = CharField()
 
 class Post(BaseModel):
-	business = ForeignKeyField(Business, backref='business')
+	business = ForeignKeyField(Business, backref='post')
 	image = CharField()
 	content = CharField()
 	date = DateTimeField(default=datetime.datetime.now)
+
+
 
 
 def initialize():
