@@ -8,3 +8,19 @@ subscriptions = Blueprint('subscriptions', 'subscriptions')
 @subscriptions.route('/', methods=['GET'])
 def test():
 	return 'subscriptions resource working'
+
+@subscriptions.route('/<id>', methods=['POST'])
+@login_required
+def subscribe(id):
+	business = models.Business.get_by_id(id)
+	models.Subscription.create(
+			following=business.id,
+			follower=current_user.id
+		)
+	return jsonify(
+			data={},
+			message=f'subscribed to {business.name}',
+			status=200
+		), 200
+	
+

@@ -1,7 +1,7 @@
 import models
 from flask import Blueprint, request, jsonify
 from playhouse.shortcuts import model_to_dict
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 posts = Blueprint('posts', 'posts')
 
@@ -20,6 +20,7 @@ def post_index():
 
 
 @posts.route('/', methods=['POST'])
+@login_required
 def create_post():
 	payload = request.get_json()
 	try:
@@ -42,6 +43,7 @@ def create_post():
 			), 401
 
 @posts.route('/<id>', methods=['Delete'])
+@login_required
 def delete_post(id):
 	post = models.Post.get_by_id(id)
 	if post.business.owner.id == current_user.id:
@@ -59,6 +61,7 @@ def delete_post(id):
 			), 401
 
 @posts.route('/<id>', methods=['PUT'])
+@login_required
 def update_post(id):
 	payload = request.get_json()
 	post = models.Post.get_by_id(id)
