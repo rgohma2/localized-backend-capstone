@@ -57,7 +57,31 @@ def delete_post(id):
 				message='You do not own the business that made this post.',
 				status=401
 			), 401
-	
+
+@posts.route('/<id>', methods=['PUT'])
+def update_post(id):
+	payload = request.get_json()
+	post = models.Post.get_by_id(id)
+	if post.business.owner.id == current_user.id:
+		post.content = payload['content'] if 'content' in payload else None
+		post.image = payload['image'] if 'image' in payload else None
+		post.save()
+
+		post_dict = model_to_dict(post)
+		post_dict['business'].pop('owner')
+
+		return jsonify(
+				data=post_dict,
+				message='Sucessfully updated post!',
+				status=201
+			), 201
+	else:
+		return jsonify(
+				data={},
+				message='You do not own the business that made this post.',
+				status=401
+			), 401
+
 
 
 
