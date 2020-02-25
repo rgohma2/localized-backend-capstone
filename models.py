@@ -39,9 +39,15 @@ class Post(BaseModel):
 	content = CharField()
 	date = DateTimeField(default=datetime.datetime.now)
 
-class Subscription(BaseModel):
+class Subscription(Model):
 	following = ForeignKeyField(Business, backref='subscribers')
 	follower = ForeignKeyField(User, backref='subscriptions')
+
+	class Meta:
+		database = DATABASE
+		indexes = (
+			(('following','follower'), True),
+		)
 
 
 
