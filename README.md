@@ -1,30 +1,29 @@
 ## Models
 ```
 User
+	address FK: Address
 	first_name
 	last_name
 	email
 	password
-	address 
-		address 
-		city
-		state
-		zip
-		country 
+
 
 
 Business
+	address FK: Address
 	owner FK: User
 	category
 	image
 	business_name
 	about
-	address 
-		address
-		city
-		state
-		zip
-		country
+
+Address
+	address_1 
+	address_2 
+	city 
+	state
+	zip_code 
+	country 
 
 
 Post
@@ -65,7 +64,7 @@ Message
 |/api/v1/users/login | POST | user login route |
 |/api/v1/users/logout | GET | user logout route |
 |/api/v1/posts | GET | post index route |
-|/api/v1/posts | POST | post create route |
+|/api/v1/posts/`<business_id>` | POST | post create route |
 |/api/v1/posts/`<id>` | DELETE | post destroy route |
 |/api/v1/posts/`<id>` | PUT | post update route |
 |/api/v1/comments/`<post_id>` | GET | comment index route |
@@ -86,7 +85,7 @@ Message
 * 1st Sprint: Feb 24th - Feb 26th
 	* Full CRUD on User, Business, and Post models
 * 2nd Sprint : Feb 26th - 28th
-	* Full CRUD on Subscribtions and comments, and set up cloudinary
+	* Full CRUD on Subscriptions and comments, and set up cloudinary
 
 
 

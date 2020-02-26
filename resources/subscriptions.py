@@ -15,19 +15,6 @@ def subscription_index():
 	# gets the businesses being followed from the subscriptions
 	businesses_being_followed = [subscription.following for subscription in subscriptions_query]
 
-	# post_dicts=[]
-	# for i in range (0, len(businesses_being_followed)):
-	# 	posts = businesses_being_followed[i].posts
-	# 	print(posts)
-	# 	# looping through posts of each business and cleaning up data before appending it
-	# 	for j in range (0, len(posts)):
-	# 		print("THIS IS THE POST DICT")
-	# 		post = model_to_dict(posts[j])
-	# 		post['business'].pop('owner')
-	# 		post['business'].pop('address')
-	# 		post_dicts.append(post)
-	# print(post_dicts)
-
 	# finding posts where follower id matches logged in user id
 	posts = (models.Post
 		.select()

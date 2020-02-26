@@ -48,12 +48,16 @@ class Subscription(Model):
 		indexes = (
 			(('following','follower'), True),
 		)
-
+class Comment(BaseModel):
+	post = ForeignKeyField(Post, backref='comments')
+	commenter = ForeignKeyField(User, backref='comments')
+	content = CharField()
+	date = DateTimeField(default=datetime.datetime.now)
 
 
 def initialize():
 	DATABASE.connect()
-	DATABASE.create_tables([Address, User, Business, Post, Subscription], safe=True)
+	DATABASE.create_tables([Address, User, Business, Post, Subscription, Comment], safe=True)
 	print('Sucessfully connected to DataBase')
 	DATABASE.close()
 
