@@ -32,12 +32,12 @@ def subscription_index():
 			status=200
 		), 200
 
-@subscriptions.route('/<id>', methods=['POST'])
+@subscriptions.route('/<business_id>', methods=['POST'])
 @login_required
-def subscribe(id):
+def subscribe(business_id):
 	try:
 
-		business = models.Business.get_by_id(id)
+		business = models.Business.get_by_id(business_id)
 		models.Subscription.create(
 				following=business.id,
 				follower=current_user.id

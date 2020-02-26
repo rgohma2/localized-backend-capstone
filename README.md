@@ -69,7 +69,7 @@ Message
 |/api/v1/posts/`<id>` | PUT | post update route |
 |/api/v1/comments/`<post_id>` | GET | comment index route |
 |/api/v1/comments/`<post_id>` | POST | comment create route |
-|/api/v1/comments/`<post_id>` | DELETE | comment destroy route |
+|/api/v1/comments/`<id>` | DELETE | comment destroy route |
 |/api/v1/businesses | GET | business index route |
 |/api/v1/businesses/`<id>` | GET | business show route |
 |/api/v1/businesses | POST | business create route |
