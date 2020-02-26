@@ -8,9 +8,16 @@ comments = Blueprint('comments', 'comments')
 @comments.route('/<post_id>', methods=['GET'])
 def comment_index(post_id):
 	post = models.Post.get_by_id(post_id)
-	print(model_to_dict(post))
+	comments = post.comments
+	comment_dicts = [model_to_dict(comment) for comment in comments]
+	[(comment['post']['business'].pop('owner'), comment['post']['business'].pop('address'), comment['commenter'].pop('password'), comment['commenter'].pop('address')) for comment in comment_dicts]
+	print(comment_dicts)
 
-	return 'comments resource working'
+	return jsonify(
+			data=comment_dicts,
+			message=f'Successfully retrieved {len(comments)} comments',
+			status=200
+		), 200
 
 
 
