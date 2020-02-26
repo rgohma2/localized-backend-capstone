@@ -85,7 +85,8 @@ Message
 
 * 1st Sprint: Feb 24th - Feb 26th
 	* Full CRUD on User, Business, and Post models
-* 2nd Sprint : Feb 26th - 
+* 2nd Sprint : Feb 26th - 28th
+	* Full CRUD on Subscribtions and comments, and set up cloudinary
 
 
 

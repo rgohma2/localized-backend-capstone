@@ -19,15 +19,19 @@ def post_index():
 		), 201
 
 
-@posts.route('/', methods=['POST'])
+@posts.route('/<business_id>', methods=['POST'])
 @login_required
-def create_post():
+def create_post(business_id):
 	payload = request.get_json()
 	try:
 		business = models.Business.get(models.Business.owner == current_user.id)
+		print('this is the busisiness')
 		print(business)
-		payload['business'] = business
-		post = models.Post.create(**payload)
+		post = models.Post.create(
+				business=business_id,
+				image=payload['image'],
+				content=payload['content']
+			)
 		post_dict = model_to_dict(post)
 		print(post_dict)
 		return jsonify(
