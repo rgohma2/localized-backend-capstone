@@ -3,7 +3,7 @@ from flask_login import UserMixin
 import datetime
 
 
-DATABASE = SqliteDatabase('localized.sqlite')
+DATABASE = SqliteDatabase('localized.sqlite', pragmas={'foreign_keys': 1})
 
 class BaseModel(Model):
 	"""Our base model that all other models will inherit from"""
@@ -19,7 +19,7 @@ class Address(BaseModel):
 	country = CharField()
 
 class User(BaseModel, UserMixin):
-	address = ForeignKeyField(Address)
+	address = ForeignKeyField(Address, on_delete='CASCADE')
 	first_name = CharField()
 	last_name = CharField()
 	email = CharField(unique=True) 
@@ -27,21 +27,21 @@ class User(BaseModel, UserMixin):
 
 class Business(BaseModel):
 	address = ForeignKeyField(Address)
-	owner = ForeignKeyField(User, backref='business')
+	owner = ForeignKeyField(User, backref='business', on_delete='CASCADE')
 	name = CharField()
 	about = CharField()
 	category = CharField()
 	image = CharField()
 
 class Post(BaseModel):
-	business = ForeignKeyField(Business, backref='posts')
+	business = ForeignKeyField(Business, backref='posts', on_delete='CASCADE')
 	image = CharField()
 	content = CharField()
 	date = DateTimeField(default=datetime.datetime.now)
 
 class Subscription(Model):
-	following = ForeignKeyField(Business, backref='subscribers')
-	follower = ForeignKeyField(User, backref='subscriptions')
+	following = ForeignKeyField(Business, backref='subscribers', on_delete='CASCADE')
+	follower = ForeignKeyField(User, backref='subscriptions', on_delete='CASCADE')
 
 	class Meta:
 		database = DATABASE
@@ -50,7 +50,7 @@ class Subscription(Model):
 		)
 class Comment(BaseModel):
 	post = ForeignKeyField(Post, backref='comments')
-	commenter = ForeignKeyField(User, backref='comments')
+	commenter = ForeignKeyField(User, backref='comments', on_delete='CASCADE')
 	content = CharField()
 	date = DateTimeField(default=datetime.datetime.now)
 

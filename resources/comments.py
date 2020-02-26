@@ -33,6 +33,10 @@ def create_comment(post_id):
 		)
 
 	comment_dict = model_to_dict(comment)
+	comment_dict['post']['business'].pop('owner')
+	comment_dict['post']['business'].pop('address')
+	comment_dict['commenter'].pop('password')
+	comment_dict['commenter'].pop('address')
 
 	return jsonify(
 			data=comment_dict,

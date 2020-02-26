@@ -3,7 +3,7 @@ import models
 from flask import Blueprint, request, jsonify
 from flask_bcrypt import generate_password_hash, check_password_hash
 from playhouse.shortcuts import model_to_dict
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required, current_user
 
 
 
@@ -95,6 +95,7 @@ def login():
 			), 401
 
 @users.route('/logout', methods=['GET'])
+@login_required
 def logout():
 	logout_user()
 	return jsonify(
@@ -102,6 +103,21 @@ def logout():
 			message='Sucessfully logged out user.',
 			status=200
 		), 200
+
+
+@users.route('/delete', methods=['Delete'])
+@login_required
+def delete_account():
+	user = models.User.get_by_id(current_user.id)
+	user.delete_instance(recursive=True)
+
+	return jsonify(
+			data={},
+			message='Account deleted.',
+			status=201
+		), 201
+
+
 
 
 
