@@ -41,7 +41,7 @@ def create_comment(post_id):
 		), 200
 
 
-@comments.route('/<id>')
+@comments.route('/<id>', methods=['Delete'])
 @login_required
 def delete_comment(id):
 	comment = models.Comment.get_by_id(id)
