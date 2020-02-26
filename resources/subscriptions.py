@@ -14,27 +14,23 @@ def subscription_index():
 	
 	# gets the businesses being followed from the subscriptions
 	businesses_being_followed = [subscription.following for subscription in subscriptions_query]
-	print(model_to_dict(businesses_being_followed[1]))
 
-	
-	# loops through businesses and joins the posts while simultaniously making dictionaries
-	# post_dicts = []
-	# for i in range (0, len(businesses_being_followed)):
+	post_dicts=[]
+	for i in range (0, len(businesses_being_followed)):
+		posts = businesses_being_followed[i].posts
+		print(posts)
+		# post_dicts=[model_to_dict(post) for post in posts]
+		for j in range (0, len(posts)):
+			print("THIS IS THE POST DICT")
+			post = model_to_dict(posts[j])
+			post['business'].pop('owner')
+			post['business'].pop('address')
+			post_dicts.append(post)
+	print(post_dicts)
 
-	# post_query = models.Post.select().join(models.Business).where(models.Business.id == businesses_being_followed[i].id)
-
-		# post_dicts.append(post)
-		# post_dicts = [model_to_dict(post) for post in posts]
-		# [(post['business'].pop('owner'), post['business'].pop('address')) for post in post_dicts]
-
-
-	# print(post_dicts)
-	posts = businesses_being_followed[0].posts
-	print(model_to_dict(posts[0]))
-	# post_dicts = [model_to_dict(business.posts) for business in businesses_being_followed]
 
 	return jsonify(
-			data={},
+			data=post_dicts,
 			message='subscriptions: {}'.format(len(businesses_being_followed)),
 			status=200
 		), 200
