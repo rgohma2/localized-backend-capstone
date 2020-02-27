@@ -51,7 +51,7 @@ def create_post(business_id):
 def delete_post(id):
 	post = models.Post.get_by_id(id)
 	if post.business.owner.id == current_user.id:
-		post.delete_instance()
+		post.delete_instance(recursive=True)
 		return jsonify(
 				data={},
 				message='Sucessfully deleted post!',

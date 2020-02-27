@@ -69,7 +69,7 @@ def delete_business(id):
 	# storing business name to be used in response message
 	name = business.name
 	if current_user.id == business.owner.id:
-		business.delete_instance()
+		business.delete_instance(recursive=True)
 		return jsonify(
 				data={},
 				message=f'Your business {name} has been deleted!',
@@ -92,6 +92,8 @@ def update_business(id):
 
 		address = models.Address.get_by_id(business.address.id)
 
+
+		# updating address data for business
 		address.address_1 = payload['address_1'] if 'address_1' in payload else None
 		address.address_2 = payload['address_2'] if 'address_2' in payload else None
 		address.city = payload['city'] if 'city' in payload else None
@@ -100,6 +102,7 @@ def update_business(id):
 		address.country = payload['country'] if 'country' in payload else None
 		address.save()
 
+		# updating business data
 		business.address = address
 		business.name = payload['name'] if 'name' in payload else None
 		business.about = payload['about'] if 'about' in payload else None
