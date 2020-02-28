@@ -32,9 +32,6 @@ def register():
 	except models.DoesNotExist:
 		payload['password'] = generate_password_hash(payload['password'])
 		print(payload)
-		# return 'hi'
-		# if payload['address_2'] == None:
-		# 	payload['address_2'] == ''
 		user_address = models.Address.create(
 				address_1=payload['address_1'],
 				address_2=payload['address_2'],
@@ -71,11 +68,24 @@ def login():
 		user = models.User.get(models.User.email == payload['email'])
 		user_dict = model_to_dict(user)
 		password_matches = check_password_hash(user_dict['password'], payload['password'])
+		
+		# checking to see if user is the owner of a business
+		business = (models.Business
+			.select()
+			.join(models.User)
+			.where(models.Business.owner == user.id))
+		business_dict = ''
+		# if the user owns a business then we will send it back as a dict
+		if len(business) != 0:
+			business = business[0]
+			business_dict = model_to_dict(business)
 		if password_matches:
 			login_user(user)
 			user_dict.pop('password')
+
 			return jsonify(
 					data=user_dict,
+					business=business_dict,
 					message=f'Welcome back {user.first_name}.',
 					status=201
 				), 201

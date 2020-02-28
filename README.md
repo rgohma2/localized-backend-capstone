@@ -83,10 +83,15 @@ Message
 
 ## Development Process
 
-* 1st Sprint: Feb 24th - Feb 26th
+* 1st Sprint: Feb 23th - Feb 25th
 	* Full CRUD on User, Business, and Post models
-* 2nd Sprint : Feb 26th - 28th
-	* Full CRUD on Subscriptions and comments, and set up cloudinary
+* 2nd Sprint: Feb 26th - 28th
+	* Full CRUD on Subscriptions and Comments
+	* Set up client-side auth, business CRUD, and post CRUD
+* 3rd Sprint: Feb 29th - Mar 2nd
+	* Client-side full CRUD on Subscriptions and Comments
+	* Set up Cloudinary so pictures can be posted
+
 
 
 
