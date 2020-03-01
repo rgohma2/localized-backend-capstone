@@ -65,6 +65,7 @@ Message
 |/api/v1/users/logout | GET | user logout route |
 |/api/v1/users/delete| GET | user logout route |
 |/api/v1/posts | GET | post index route |
+|/api/v1/posts/`<business_id>` | GET | business posts get route |
 |/api/v1/posts/`<business_id>` | POST | post create route |
 |/api/v1/posts/`<id>` | DELETE | post destroy route |
 |/api/v1/posts/`<id>` | PUT | post update route |

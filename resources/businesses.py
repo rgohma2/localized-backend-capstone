@@ -27,7 +27,6 @@ def business_index():
 		), 200
 
 @businesses.route('/<id>', methods=['GET'])
-@login_required
 def business_show(id):
 	business = models.Business.get_by_id(id)
 	business_dict = model_to_dict(business)

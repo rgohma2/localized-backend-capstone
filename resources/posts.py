@@ -18,6 +18,21 @@ def post_index():
 			status=201
 		), 201
 
+@posts.route('/<id>', methods=['GET'])
+def business_posts(id):
+	posts = (models.Post
+		.select()
+		.where(models.Post.business == id)	
+		)
+	post_dicts = [model_to_dict(post) for post in posts]
+	print(post_dicts)
+
+	return jsonify(
+			data=post_dicts,
+			message=f'Sucessfully retrieved {len(posts)} posts.',
+			status=200
+		), 200
+
 
 @posts.route('/<business_id>', methods=['POST'])
 @login_required
