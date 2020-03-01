@@ -10,11 +10,13 @@ subscriptions = Blueprint('subscriptions', 'subscriptions')
 def subscription_index():
 
 	# query that finds all the subscriptions of the logged in user
-	subscriptions_query = models.Subscription.select().join(models.User).where(models.User.id == current_user.id)
+	subscriptions_query = (models.Subscription
+		.select().join(models.User)
+		.where(models.User.id == current_user.id))
 	
 	# gets the businesses being followed from the subscriptions
-	businesses_being_followed = [subscription.following for subscription in subscriptions_query]
-
+	businesses_being_followed = [model_to_dict(subscription.following) for subscription in subscriptions_query]
+	print(businesses_being_followed)
 	# finding posts where follower id matches logged in user id
 	posts = (models.Post
 		.select()
@@ -28,6 +30,7 @@ def subscription_index():
 
 	return jsonify(
 			data=post_dicts,
+			subscriptions=businesses_being_followed,
 			message='subscriptions: {}'.format(len(businesses_being_followed)),
 			status=200
 		), 200
