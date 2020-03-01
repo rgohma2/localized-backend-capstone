@@ -26,6 +26,18 @@ def business_index():
 			status=200
 		), 200
 
+@businesses.route('/<id>', methods=['GET'])
+@login_required
+def business_show(id):
+	business = models.Business.get_by_id(id)
+	business_dict = model_to_dict(business)
+	print(business_dict)
+	return jsonify(
+			data=business_dict,
+			message=f'Successfully retrieved business at id: {business.id}',
+			status=200
+		), 200
+
 @businesses.route('/', methods=['POST'])
 @login_required
 def create_business():
