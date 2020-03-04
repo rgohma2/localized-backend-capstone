@@ -26,6 +26,7 @@ CORS(comments, origins=['http://localhost:3000', 'https://localized-capstone-app
 
 
 
+
 app.register_blueprint(users, url_prefix='/api/v1/users')
 app.register_blueprint(businesses, url_prefix='/api/v1/businesses')
 app.register_blueprint(posts, url_prefix='/api/v1/posts')
