@@ -16,11 +16,11 @@ PORT = 8000
 
 app = Flask(__name__) 
 
-CORS(users, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(businesses, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(posts, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(subscriptions, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(comments, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(users, origins=['http://localhost:3000', 'https://localized-capstone-app.herokuapp.com'], supports_credentials=True)
+CORS(businesses, origins=['http://localhost:3000', 'https://localized-capstone-app.herokuapp.com'], supports_credentials=True)
+CORS(posts, origins=['http://localhost:3000', 'https://localized-capstone-app.herokuapp.com'], supports_credentials=True)
+CORS(subscriptions, origins=['http://localhost:3000', 'https://localized-capstone-app.herokuapp.com'], supports_credentials=True)
+CORS(comments, origins=['http://localhost:3000', 'https://localized-capstone-app.herokuapp.com'], supports_credentials=True)
 
 
 
