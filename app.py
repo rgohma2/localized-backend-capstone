@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, jsonify
 from flask_login import LoginManager
 from flask_cors import CORS
@@ -56,8 +58,9 @@ def unauthorized():
 
 
 
-
-
+if 'ON_HEROKU' in os.environ: 
+  print('\non heroku!')
+  models.initialize()
 
 
 

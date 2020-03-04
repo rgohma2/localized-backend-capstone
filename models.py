@@ -1,9 +1,17 @@
+import os
 from peewee import *
 from flask_login import UserMixin
 import datetime
 
+from playhouse.db_url import connect
 
-DATABASE = SqliteDatabase('localized.sqlite', pragmas={'foreign_keys': 1})
+if 'ON_HEROKU' in os.environ:
+ 
+	DATABASE = connect(os.environ.get('DATABASE_URL'))
+
+else:
+
+	DATABASE = SqliteDatabase('localized.sqlite', pragmas={'foreign_keys': 1})
 
 class BaseModel(Model):
 	"""Our base model that all other models will inherit from"""
@@ -60,6 +68,7 @@ def initialize():
 	DATABASE.create_tables([Address, User, Business, Post, Subscription, Comment], safe=True)
 	print('Sucessfully connected to DataBase')
 	DATABASE.close()
+
 
 
 
